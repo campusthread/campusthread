@@ -83,7 +83,11 @@ export const createProduct = async (req, res) => {
 };
 
 export const updateProduct = async (req, res) => {
-  const product = await Product.findOne({ _id: req.params.id, vendor: req.user._id });
+  const query = req.user.role === "admin"
+    ? { _id: req.params.id }
+    : { _id: req.params.id, vendor: req.user._id };
+
+  const product = await Product.findOne(query);
   if (!product) {
     throw new AppError("Product not found", 404);
   }
@@ -104,7 +108,11 @@ export const updateProduct = async (req, res) => {
 };
 
 export const deleteProduct = async (req, res) => {
-  const product = await Product.findOneAndDelete({ _id: req.params.id, vendor: req.user._id });
+  const query = req.user.role === "admin"
+    ? { _id: req.params.id }
+    : { _id: req.params.id, vendor: req.user._id };
+
+  const product = await Product.findOneAndDelete(query);
   if (!product) {
     throw new AppError("Product not found", 404);
   }
