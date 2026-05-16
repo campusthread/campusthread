@@ -374,18 +374,22 @@ function ProductCard({ product, isDark, surfaceClass, mutedText, onView }) {
   const videoUrl = product.videos?.[0]?.url
 
   return (
-    <article className={cx('group flex overflow-hidden rounded-xl border shadow-lg transition hover:-translate-y-1 hover:shadow-xl', surfaceClass)}>
-      <div className="flex w-full flex-col">
-        <div className={cx('flex h-52 items-center justify-center overflow-hidden', isDark ? 'bg-slate-950' : 'bg-slate-100')}>
-          {videoUrl ? (
-            <video className="h-full w-full object-cover" controls>
-              <source src={videoUrl} />
-            </video>
-          ) : imageUrl ? (
-            <img src={imageUrl} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" alt={product.name} />
-          ) : (
-            <Package size={42} className={isDark ? 'text-slate-600' : 'text-slate-400'} />
-          )}
+    <article className={cx('group h-full overflow-hidden rounded-xl border shadow-lg transition hover:-translate-y-1 hover:shadow-xl', surfaceClass)}>
+      <div className="w-full">
+        <div className={cx('overflow-hidden', isDark ? 'bg-slate-950' : 'bg-slate-100')}>
+          <div className="aspect-[4/3] w-full overflow-hidden">
+            {videoUrl ? (
+              <video className="h-full w-full object-cover" controls>
+                <source src={videoUrl} />
+              </video>
+            ) : imageUrl ? (
+              <img src={imageUrl} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" alt={product.name} />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center">
+                <Package size={42} className={isDark ? 'text-slate-600' : 'text-slate-400'} />
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="flex flex-1 flex-col p-5">

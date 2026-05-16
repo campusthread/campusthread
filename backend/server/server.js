@@ -9,6 +9,7 @@ import { logger } from "./utils/logger.js";
 
 const server = http.createServer(app);
 setupSocketServer(server);
+server.setTimeout(10 * 60 * 1000);
 
 const shutdown = async (signal) => {
   logger.info(`${signal} received, starting graceful shutdown`);
