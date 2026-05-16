@@ -22,7 +22,7 @@ router.get("/:id", getProductById);
 router.post("/", requireAuth, requireRole("vendor"), createProduct);
 router.put("/:id", requireAuth, requireRole("vendor", "admin"), updateProduct);
 router.delete("/:id", requireAuth, requireRole("vendor", "admin"), deleteProduct);
-router.post("/:id/media", requireAuth, requireRole("vendor"), upload.single("media"), uploadProductMedia);
+router.post("/:id/media", requireAuth, requireRole("vendor", "admin"), upload.single("media"), uploadProductMedia);
 router.post("/:id/reviews", requireAuth, addProductReview);
 
 export default router;

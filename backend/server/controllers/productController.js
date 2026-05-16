@@ -123,7 +123,11 @@ export const deleteProduct = async (req, res) => {
 };
 
 export const uploadProductMedia = async (req, res) => {
-  const product = await Product.findOne({ _id: req.params.id, vendor: req.user._id });
+  const query = req.user.role === "admin"
+    ? { _id: req.params.id }
+    : { _id: req.params.id, vendor: req.user._id };
+
+  const product = await Product.findOne(query);
   if (!product) {
     throw new AppError("Product not found", 404);
   }
